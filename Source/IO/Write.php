@@ -2,17 +2,17 @@
 
 namespace Saeghe\Cli\IO\Write;
 
-function line(string $string, ?string $foreground = '39')
+function line(string $string)
 {
-    echo "\e[{$foreground}m$string" . PHP_EOL;
+    echo "\e[39m$string" . PHP_EOL;
 }
 
 function success(string $string)
 {
-    line($string, '92');
+    echo "\e[92m$string\e[39m" . PHP_EOL;
 }
 
 function error(string $string)
 {
-    line($string, '91');
+    echo "\e[91m$string\e[39m" . PHP_EOL;
 }
