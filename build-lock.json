@@ -1,0 +1,10 @@
+{
+    "packages": {
+        "git@github.com:saeghe\/test-runner.git": {
+            "version": "development",
+            "hash": "15278d9d9aa4c26e079c1d2d262f2dd367af8ae1",
+            "owner": "saeghe",
+            "repo": "test-runner"
+        }
+    }
+}
