@@ -4,9 +4,6 @@
         "Tests": "Tests"
     },
     "packages": {
-        "Saeghe\\TestRunner": {
-            "path": "git@github.com:saeghe\/test-runner.git",
-            "version": "development"
-        }
+        "git@github.com:saeghe\/test-runner.git": "development"
     }
 }
