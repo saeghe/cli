@@ -3,7 +3,11 @@
         "Saeghe\\Cli": "Source",
         "Tests": "Tests"
     },
+    "entry-points": [],
+    "excludes": [],
+    "executables": [],
+    "packages-directory": "Packages",
     "packages": {
-        "git@github.com:saeghe\/test-runner.git": "development"
+        "git@github.com:saeghe\/test-runner.git": "v1.0.0"
     }
 }
