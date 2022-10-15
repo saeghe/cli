@@ -27,3 +27,20 @@ function command(): ?string
 
     return str_starts_with($argv[1], '--') ? null : $argv[1];
 }
+
+function argument_after($input, $default = null)
+{
+    global $argv;
+
+    $argument = $default;
+
+    foreach ($argv as $key => $userInput) {
+        if ($userInput === $input) {
+            $argument = $argv[$key + 1] ?? $default;
+            $argument = $argument === null || ! str_starts_with($argument, '--') ? $argument : $default;
+            break;
+        }
+    }
+
+    return $argument;
+}
