@@ -39,6 +39,17 @@ test(
 );
 
 test(
+    title: 'it should return null as command when not passed',
+    case: function () {
+        $output = shell_exec(__DIR__ . '/../../TestRequirements/ReadCommandHelper.php');
+        assert(is_null($output), $output);
+
+        $output = shell_exec(__DIR__ . '/../../TestRequirements/ReadCommandHelper.php -h');
+        assert(is_null($output), $output);
+    }
+);
+
+test(
     title: 'it should read argument from input after any command',
     case: function () {
         $email = 'my_email@saeghe.com';
@@ -61,5 +72,19 @@ test(
 
         $output = shell_exec(__DIR__ . '/../../TestRequirements/ReadArgumentAfterHelper.php --case=default build');
         assert(null === $output, 'default case: ' . $output);
+    }
+);
+
+test(
+    title: 'it should read option by given name',
+    case: function () {
+        $output = shell_exec(__DIR__ . '/../../TestRequirements/ReadOptionHelper.php --option-name');
+        assert(1 == $output, $output);
+
+        $output = shell_exec(__DIR__ . '/../../TestRequirements/ReadOptionHelper.php');
+        assert(0 == $output, 'It should return false '. $output);
+
+        $output = shell_exec(__DIR__ . '/../../TestRequirements/ReadOptionHelper.php --option-name=false');
+        assert(1 == $output, 'It should return true when option used as argument ' . $output);
     }
 );
