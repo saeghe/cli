@@ -2,7 +2,7 @@
 
 namespace Saeghe\Cli\IO\Read;
 
-function argument(string $name, mixed $default = null): ?string
+function argument(string $name, ?string $default = null): ?string
 {
     $input = getopt('', [$name . '::']);
 
