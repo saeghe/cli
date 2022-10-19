@@ -3,6 +3,9 @@
 
 namespace Tests\IO\ReadHelper;
 
+use function Saeghe\Cli\IO\Read\parameter;
 use function Saeghe\Cli\IO\Read\argument;
 
-echo argument('email', 'default-email@saeghe.com');
+$number = parameter('number');
+
+echo argument($number, 'default-value');

@@ -2,23 +2,21 @@
 
 namespace Saeghe\Cli\IO\Read;
 
-function argument(string $name, ?string $default = null): ?string
+function argument(int $number, ?string $default = null): ?string
 {
-    $input = getopt('', [$name . '::']);
+    global $argv;
 
-    if (count($input) === 0) {
-        global $argv;
+    $inputs = [];
 
-        $input = array_reduce($argv, function ($carry, $argument) use ($name) {
-            if (str_starts_with($argument, "--$name=")) {
-                return [$name => str_replace("--$name=", '', $argument)];
-            }
-
-            return $carry;
-        }, []);
+    foreach ($argv as $userInput) {
+        if (! str_starts_with($userInput, '-')) {
+            $inputs[] = $userInput;
+        }
     }
 
-    return $input[$name] ?? $default;
+    unset($inputs[0]);
+
+    return $inputs[$number] ?? $default;
 }
 
 function command(): ?string
@@ -28,21 +26,21 @@ function command(): ?string
     return ! isset($argv[1]) || str_starts_with($argv[1], '-') ? null : $argv[1];
 }
 
-function argument_after(string $input, mixed $default = null): mixed
+function parameter(string $name, ?string $default = null): ?string
 {
-    global $argv;
+    $input = getopt('', [$name . '::']);
 
-    $argument = $default;
+    if (count($input) === 0) {
+        global $argv;
 
-    foreach ($argv as $key => $userInput) {
-        if ($userInput === $input) {
-            $argument = $argv[$key + 1] ?? $default;
-            $argument = $argument === null || ! str_starts_with($argument, '--') ? $argument : $default;
-            break;
-        }
+        $input = array_reduce($argv, function ($carry, $argument) use ($name) {
+            return str_starts_with($argument, "--$name=")
+                ? [$name => str_replace("--$name=", '', $argument)]
+                : $carry;
+        }, []);
     }
 
-    return $argument;
+    return $input[$name] ?? $default;
 }
 
 function option(string $name): bool
@@ -51,8 +49,12 @@ function option(string $name): bool
 
     $option = false;
 
-    foreach ($argv as $passedOption) {
-        if ($passedOption === '--' . $name || str_starts_with($passedOption, '--' . $name . '=')) {
+    foreach ($argv as $input) {
+        if (
+            $input === '--' . $name
+            || str_starts_with($input, '--' . $name . '=')
+            || $input === '-' . $name
+        ) {
             $option = true;
             break;
         }

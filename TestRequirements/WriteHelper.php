@@ -3,13 +3,13 @@
 
 namespace Tests\IO\WriteHelper;
 
-use function Saeghe\Cli\IO\Read\argument;
+use function Saeghe\Cli\IO\Read\parameter;
 use function Saeghe\Cli\IO\Write\error;
 use function Saeghe\Cli\IO\Write\line;
 use function Saeghe\Cli\IO\Write\success;
 
-$function = argument('function');
-$message = argument('message');
+$function = parameter('function');
+$message = parameter('message');
 
 switch ($function) {
     case 'line':
