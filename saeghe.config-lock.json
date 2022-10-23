@@ -3,8 +3,8 @@
         "git@github.com:saeghe\/test-runner.git": {
             "owner": "saeghe",
             "repo": "test-runner",
-            "version": "v1.0.0",
-            "hash": "c59481dc294b28ab2ada1dad7c3ec7c8739e435e"
+            "version": "v2.0.2",
+            "hash": "2819dd0"
         }
     }
 }

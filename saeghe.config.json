@@ -8,6 +8,6 @@
     "executables": [],
     "packages-directory": "Packages",
     "packages": {
-        "git@github.com:saeghe\/test-runner.git": "v1.0.0"
+        "git@github.com:saeghe\/test-runner.git": "v2.0.2"
     }
 }
