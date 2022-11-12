@@ -3,6 +3,7 @@
 namespace Tests\IO\WriteTest;
 
 use Saeghe\Cli\IO\Write;
+use function Saeghe\TestRunner\Assertions\Boolean\assert_true;
 
 test(
     title: 'it should write message to output',
@@ -10,7 +11,7 @@ test(
         $message = 'This is an message to see on output.';
         $output = shell_exec(__DIR__ . '/../../TestRequirements/WriteHelper.php --function=line --message="' . $message . '"');
 
-        assert($output === "\e[39m$message" . PHP_EOL, 'Line function does not work properly!');
+        assert_true($output === "\e[39m$message" . PHP_EOL, 'Line function does not work properly!');
     }
 );
 
@@ -19,7 +20,7 @@ test(
     case: function () {
         $message = 'This is a message to see on output.';
         $output = shell_exec(__DIR__ . '/../../TestRequirements/WriteHelper.php --function=line --message="' . $message . '"');
-        assert(true === Write\assert_line($message, $output), 'assert_line is not working properly!' . $output);
+        assert_true(true === Write\assert_line($message, $output), 'assert_line is not working properly!' . $output);
 
         $output = shell_exec(__DIR__ . '/../../TestRequirements/WriteHelper.php --function=line --message="' . $message . '"');
         $expected = 'expected output';
@@ -28,7 +29,7 @@ test(
         try {
             Write\assert_line($expected, $output);
         } catch (\AssertionError $exception) {
-            assert(
+            assert_true(
                 "Can not see '$expectedOutput' in '$actualOutput'." === $exception->getMessage(),
                 'assert_line is not working properly!' . $output
             );
@@ -41,7 +42,7 @@ test(
     case: function () {
         $message = 'This is a success message to see on output.';
         $output = shell_exec(__DIR__ . '/../../TestRequirements/WriteHelper.php --function=success --message="' . $message . '"');
-        assert($output === "\e[92m$message\e[39m" . PHP_EOL, 'Success function does not work properly!');
+        assert_true($output === "\e[92m$message\e[39m" . PHP_EOL, 'Success function does not work properly!');
     }
 );
 
@@ -50,7 +51,7 @@ test(
     case: function () {
         $message = 'This is an success message to see on output.';
         $output = shell_exec(__DIR__ . '/../../TestRequirements/WriteHelper.php --function=success --message="' . $message . '"');
-        assert(true === Write\assert_success($message, $output), 'assert_success is not working properly!' . $output);
+        assert_true(true === Write\assert_success($message, $output), 'assert_success is not working properly!' . $output);
 
         $output = shell_exec(__DIR__ . '/../../TestRequirements/WriteHelper.php --function=success --message="' . $message . '"');
         $expected = 'expected output';
@@ -59,7 +60,7 @@ test(
         try {
             Write\assert_success($expected, $output);
         } catch (\AssertionError $exception) {
-            assert(
+            assert_true(
                 "Can not see '$expectedOutput' in '$actualOutput'." === $exception->getMessage(),
                 'assert_error is not working properly!' . $output
             );
@@ -72,7 +73,7 @@ test(
     case: function () {
         $message = 'This is an error message to see on output.';
         $output = shell_exec(__DIR__ . '/../../TestRequirements/WriteHelper.php --function=error --message="' . $message . '"');
-        assert($output === "\e[91m$message\e[39m" . PHP_EOL, 'error function does not work properly!');
+        assert_true($output === "\e[91m$message\e[39m" . PHP_EOL, 'error function does not work properly!');
     }
 );
 
@@ -81,7 +82,7 @@ test(
     case: function () {
         $message = 'This is an error message to see on output.';
         $output = shell_exec(__DIR__ . '/../../TestRequirements/WriteHelper.php --function=error --message="' . $message . '"');
-        assert(true === Write\assert_error($message, $output), 'assert_error is not working properly!' . $output);
+        assert_true(true === Write\assert_error($message, $output), 'assert_error is not working properly!' . $output);
 
         $output = shell_exec(__DIR__ . '/../../TestRequirements/WriteHelper.php --function=error --message="' . $message . '"');
         $expected = 'expected output';
@@ -90,7 +91,7 @@ test(
         try {
             Write\assert_error($expected, $output);
         } catch (\AssertionError $exception) {
-            assert(
+            assert_true(
                 "Can not see '$expectedOutput' in '$actualOutput'." === $exception->getMessage(),
             'assert_error is not working properly!' . $output
             );

@@ -1,0 +1,48 @@
+name: run-tests
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        php: [8.2, 8.1, 8.0]
+
+    name: P${{ matrix.php }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, mbstring, zip
+          coverage: none
+
+      - name: Install Saeghe
+        run: bash -c "$(curl -fsSL https://raw.github.com/saeghe/installation/master/install.sh)"
+
+      - name: Set Credentials
+        run: ~/.saeghe/saeghe/saeghe credential github.com ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install
+        run: ~/.saeghe/saeghe/saeghe install
+
+      - name: Build
+        run: ~/.saeghe/saeghe/saeghe build
+
+      - name: Execute tests
+        run: |
+          cd builds/development
+          php test-runner
