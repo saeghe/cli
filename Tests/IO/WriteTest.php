@@ -2,6 +2,7 @@
 
 namespace Tests\IO\WriteTest;
 
+use AssertionError;
 use Saeghe\Cli\IO\Write;
 use function Saeghe\TestRunner\Assertions\Boolean\assert_true;
 
@@ -28,7 +29,7 @@ test(
         $actualOutput = "\e[39m$message" . PHP_EOL;
         try {
             Write\assert_line($expected, $output);
-        } catch (\AssertionError $exception) {
+        } catch (AssertionError $exception) {
             assert_true(
                 "Can not see '$expectedOutput' in '$actualOutput'." === $exception->getMessage(),
                 'assert_line is not working properly!' . $output
@@ -59,7 +60,7 @@ test(
         $actualOutput = "\e[92m$message\e[39m" . PHP_EOL;
         try {
             Write\assert_success($expected, $output);
-        } catch (\AssertionError $exception) {
+        } catch (AssertionError $exception) {
             assert_true(
                 "Can not see '$expectedOutput' in '$actualOutput'." === $exception->getMessage(),
                 'assert_error is not working properly!' . $output
@@ -90,7 +91,7 @@ test(
         $actualOutput = "\e[91m$message\e[39m" . PHP_EOL;
         try {
             Write\assert_error($expected, $output);
-        } catch (\AssertionError $exception) {
+        } catch (AssertionError $exception) {
             assert_true(
                 "Can not see '$expectedOutput' in '$actualOutput'." === $exception->getMessage(),
             'assert_error is not working properly!' . $output
