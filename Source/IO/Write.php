@@ -2,7 +2,7 @@
 
 namespace Saeghe\Cli\IO\Write;
 
-use \AssertionError;
+use AssertionError;
 
 function line(string $string): void
 {
